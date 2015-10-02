@@ -4,10 +4,10 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.Lib;
 
-class Main extends Sprite 
+class SceneNode extends Sprite 
 {
 	var inited:Bool;
-	var main1:MapScene;
+
 	/* ENTRY POINT */
 
 	function resize(e) 
@@ -16,13 +16,17 @@ class Main extends Sprite
 		// else (resize or orientation change)
 	}
 
-	function init() 
+	function pre_init() 
 	{
 		if (inited) return;
 		inited = true;
 
 		// code
-		main1=new MapScene();
+		init();
+	}
+
+	function init(){
+	
 	}
 
 	/* SETUP */
@@ -38,19 +42,12 @@ class Main extends Sprite
 		removeEventListener(Event.ADDED_TO_STAGE, added);
 		stage.addEventListener(Event.RESIZE, resize);
 #if ios
-		haxe.Timer.delay(init, 100); // iOS 6
+		haxe.Timer.delay(pre_init, 100); // iOS 6
 #else
-		init();
+		pre_init();
 #end
 	}
 
-	public static function main() 
-	{
-		// static entry point
-		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
-		Lib.current.addChild(new Main());
-		//
-	}
+	
 }
 
